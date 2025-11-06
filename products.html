@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NutriBoom</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #fbf9f4;
+  --muted: #777;
+  --accent-blue: #7fc6f5;
+  --accent-pink: #e3aeb6;
+  --accent-green: #8aa78e;
+  --accent-tan: #d9bfb6;
+  --card-bg: #fff;
+  --text: #111;
+  --max-width: 1200px;
+}
+
+body {
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Toggle bar */
+.toggle-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 0 auto 40px;
+  max-width: var(--max-width);
+  padding: 0 40px;
+  flex-wrap: wrap;
+}
+
+.toggle-bar button {
+  border: none;
+  background: rgba(0,0,0,0.05);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.toggle-bar button.active {
+  background: rgba(0,0,0,0.15);
+}
+
+/* Panels container */
+.panels {
+  position: relative;
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 0 40px 80px;
+  box-sizing: border-box;
+}
+
+/* Each panel */
+.panel {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.panel.active {
+  display: grid;
+  opacity: 1;
+}
+
+.left {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.thumb {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  background: #fff;
+  border: 4px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-img {
+  flex: 1;
+  background: #fff;
+  border: 10px solid rgba(0,0,0,0.05);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.main-img svg {
+  width: 220px;
+  height: 320px;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.12));
+}
+
+/* Right section */
+.right {
+  max-width: 500px;
+}
+
+.brand {
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 600;
+  margin: 6px 0 10px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.volume {
+  color: var(--muted);
+  font-size: 13px;
+  margin-left: 8px;
+}
+
+.rating {
+  margin: 10px 0;
+  color: #ccc;
+}
+
+.brief {
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.tabs {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.tab {
+  background: rgba(0,0,0,0.05);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.desc {
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.add-btn {
+  background: rgba(0,0,0,0.08);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.footer {
+  margin-top: 40px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding-top: 20px;
+  font-size: 14px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+  .toggle-bar {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .navbar, .panels {
+    padding: 0 20px;
+  }
+  .main-img svg {
+    width: 160px;
+    height: 240px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+ <header  style="margin-bottom: 50px;">
+    <div class="navwrap">
+        <a href="index.html" style="text-decoration: none; color: #1e2f35;">
+      <div class="logo">NutriBoom</div>
+      </a>
+      <nav>
+        <a href="#">shop</a>
+        <a href="about.html">about us</a>
+        <a href="#">our process</a>
+        <a href="#">faq</a>
+      </nav>
+      <div class="right-icons">
+        <div class="currency">USD $</div>
+        <div class="icon">🔍</div>
+        <div class="icon">🛒</div>
+        <div class="icon">👤</div>
+      </div>
+    </div>
+  </header>
+
+  <br><br><br><br><br><br>
+
+<!-- Toggle bar -->
+<div class="toggle-bar">
+  <button class="toggle active" data-index="0">Panacea Pani</button>
+  <button class="toggle" data-index="1">Dygene Dhamaka</button>
+  <button class="toggle" data-index="2">Charismatic Crocin</button>
+  <button class="toggle" data-index="3">Authentic Aspirin</button>
+</div>
+
+<!-- Panels -->
+<div class="panels">
+
+  <!-- Panel 1 -->
+  <div class="panel active">
+    <div class="left">
+      <div class="thumbnails">
+        <div class="thumb" style="background:#e4f4fc;"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="main-img">
+     <img src="bluesale.png" alt="">
+      </div>
+    </div>
+    <div class="right">
+      <div class="brand">NutriBoom</div>
+      <div class="title">Panacea Pani</div>
+      <div><span class="price">₹75</span><span class="volume">300ml</span></div>
+      <div class="rating">★★★★★ (98)</div>
+      <div class="brief">A refreshing drink that satisfies your thirst and elevates your well-being.</div>
+      <div class="tabs">
+        <div class="tab">What it is</div><div class="tab">How To Use</div><div class="tab">Ingredients</div>
+      </div>
+      <div class="desc">Panacea Pani captures the soul of traditional Indian refreshment with a modern, medicinal twist. Infused with natural herbs and essential micronutrients, this flavour revitalises from within while maintaining the tangy zest of classic pani.</div>
+      <button class="add-btn">Add To Cart</button>
+      <div class="footer">
+        <div>Customer help · Shipping info · Track your order</div>
+        <div>ilovepokemon@mirnet.co</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 2 -->
+  <div class="panel">
+    <div class="left">
+      <div class="thumbnails">
+        <div class="thumb" style="background:#fde3ea;"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="main-img">
+       <img src="pinksale.png" alt="">
+      </div>
+    </div>
+    <div class="right">
+      <div class="brand">NutriBoom</div>
+      <div class="title">Dygene Dhamaka</div>
+      <div><span class="price">₹75</span><span class="volume">300ml</span></div>
+      <div class="rating">★★★★★ (98)</div>
+      <div class="brief">A refreshing drink that satisfies your thirst and elevates your well-being.</div>
+      <div class="tabs">
+        <div class="tab">What it is</div><div class="tab">How To Use</div><div class="tab">Ingredients</div>
+      </div>
+      <div class="desc">Tired of dealing with indigestion and acidity? Dygene Dhamaka is your delicious solution! This flavorful drink not only satisfies your taste buds but also provides quick relief from digestive discomfort.</div>
+      <button class="add-btn">Add To Cart</button>
+      <div class="footer">
+        <div>Customer help · Shipping info · Track your order</div>
+        <div>ilovepokemon@mirnet.co</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 3 -->
+  <div class="panel">
+    <div class="left">
+      <div class="thumbnails">
+        <div class="thumb" style="background:#d7e7d9;"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="main-img">
+     <img src="greensale.png">
+      </div>
+    </div>
+    <div class="right">
+      <div class="brand">NutriBoom</div>
+      <div class="title">Charismatic Crocin</div>
+      <div><span class="price">₹75</span><span class="volume">300ml</span></div>
+      <div class="rating">★★★★★ (98)</div>
+      <div class="brief">A refreshing drink that satisfies your thirst and elevates your well-being.</div>
+      <div class="tabs">
+        <div class="tab">What it is</div><div class="tab">How To Use</div><div class="tab">Ingredients</div>
+      </div>
+      <div class="desc">Feeling under the weather? Charismatic Crocin is here to refresh and revive you! Enjoy a delightful burst of flavors that ease aches and fevers and keep you energized all day.</div>
+      <button class="add-btn">Add To Cart</button>
+      <div class="footer">
+        <div>Customer help · Shipping info · Track your order</div>
+        <div>ilovepokemon@mirnet.co</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 4 -->
+  <div class="panel">
+    <div class="left">
+      <div class="thumbnails">
+        <div class="thumb" style="background:#f1e1db;"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="main-img">
+        <img src="orangesale.png" alt="">
+      </div>
+    </div>
+    <div class="right">
+      <div class="brand">NutriBoom</div>
+      <div class="title">Authentic Aspirin</div>
+      <div><span class="price">₹75</span><span class="volume">300ml</span></div>
+      <div class="rating">★★★★★ (98)</div>
+      <div class="brief">A refreshing drink that satisfies your thirst and elevates your well-being.</div>
+      <div class="tabs">
+        <div class="tab">What it is</div><div class="tab">How To Use</div><div class="tab">Ingredients</div>
+      </div>
+      <div class="desc">In need of a trusted companion for pain relief? Authentic Aspirin is the answer! Packed with invigorating flavors, this drink not only alleviates pain but supports your well-being.</div>
+      <button class="add-btn">Add To Cart</button>
+      <div class="footer">
+        <div>Customer help · Shipping info · Track your order</div>
+        <div>ilovepokemon@mirnet.co</div>
+      </div>
+    </div>
+  </div>
+  <br><br>
+
+</div>
+ <footer>
+    <hr>
+    <br>
+    <div class="footer-inner">
+      <div class="footer-column">
+        <h4>NutriBoom</h4>
+        <a href="#">The World of Remedies.</a>
+      </div>
+      <div class="footer-column">
+        <h4>Quick Links</h4>
+        <a href="#">Shop</a>
+        <a href="#">About Us</a>
+        <a href="#">FAQ</a>
+        <a href="#">Our Process</a>
+      </div>
+      <div class="footer-column">
+        <h4>Support</h4>
+        <a href="#">Customer Help</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Track Your Order</a>
+      </div>
+      <div class="footer-column newsletter">
+        <h4>Subscribe to our newsletter</h4>
+        <input type="email" placeholder="Email">
+        <button>Subscribe</button>
+      </div>
+    </div>
+    <div class="copyright">© 2025 NutriBoom. All rights reserved.</div>
+  </footer>
+<script>
+const toggles = document.querySelectorAll('.toggle');
+const panels = document.querySelectorAll('.panel');
+
+toggles.forEach((btn, index) => {
+  btn.addEventListener('click', () => {
+    toggles.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    panels.forEach(p => p.classList.remove('active'));
+    panels[index].classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
